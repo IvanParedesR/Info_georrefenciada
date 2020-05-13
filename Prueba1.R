@@ -4,28 +4,18 @@ library(ggplot2)
 library(osmdata)
 library(leaflet)
 
-bbox_poly <- getbb(",Tacubaya, Miguel Hidalgo, Ciudad de México", format_out = "sf_polygon")
+bbox_poly <- getbb("Benito Juarez, Ciudad de México", format_out = "sf_polygon")
 leaflet(bbox_poly) %>%
   addTiles() %>% 
   addPolygons()
-
-
-bbox_poly <- opq(bbox =  c(-99.2300, 19.391555, -99.1800, 19.40755)) %>%
-leaflet(bbox_poly) %>%
-  addTiles() %>% 
-  addPolygons()
-
-
 
 MH <- opq(bbox) %>% 
   add_osm_feature(key = "highway")
 
-
-MH1 <- MH %>% 
+MH <- MH %>% 
   osmdata_sf()
 
-
-calles <- MH1$osm_lines
+calles <- MH$osm_lines
 
 head(calles) 
 ggplot() +
